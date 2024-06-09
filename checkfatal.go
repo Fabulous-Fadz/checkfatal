@@ -5,6 +5,8 @@ import (
 	"go/token"
 )
 
+var funcDecls map[string]*ast.FuncDecl
+
 func callsOsExit(call *ast.CallExpr, visited map[*ast.FuncDecl]bool) bool {
 	selector, ok := call.Fun.(*ast.SelectorExpr)
 	if ok && selector.X.(*ast.Ident).Name == "os" && selector.Sel.Name == "Exit" {
@@ -29,8 +31,8 @@ func callsOsExit(call *ast.CallExpr, visited map[*ast.FuncDecl]bool) bool {
 }
 
 func lookupFuncDecl(name string) *ast.FuncDecl {
-	// TODO: Implement this...
-	return nil
+	fd, _ := funcDecls[name]
+	return fd
 }
 
 func checkForFollowingLine(node *ast.CallExpr, fset *token.FileSet) (bool, int) {
