@@ -31,8 +31,8 @@ func callsOsExit(call *ast.CallExpr, visited map[*ast.FuncDecl]bool) bool {
 }
 
 func lookupFuncDecl(name string) *ast.FuncDecl {
-	// TODO: Implement this...
-	return nil
+	fd, _ := funcDecls[name]
+	return fd
 }
 
 func checkForFollowingLine(node *ast.CallExpr, fset *token.FileSet) (bool, int) {
