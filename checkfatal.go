@@ -5,6 +5,8 @@ import (
 	"go/token"
 )
 
+var funcDecls map[string]*ast.FuncDecl
+
 func callsOsExit(call *ast.CallExpr, visited map[*ast.FuncDecl]bool) bool {
 	selector, ok := call.Fun.(*ast.SelectorExpr)
 	if ok && selector.X.(*ast.Ident).Name == "os" && selector.Sel.Name == "Exit" {
